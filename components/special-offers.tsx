@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-
+import Link from 'next/link';
 import img from '../public/images/woman.jpg'
 import man from '../public/images/man.jpg'
 import kids from '../public/images/kids.jpg'
@@ -36,30 +36,32 @@ function SpecialOffers() {
         }
       };
   return (
-    <section className='flex justify-center items-center max-w-[1200px] m-auto'>
-      <div className="grid grid-cols-2 gap-4">
-      {images.map((src,index) => (
-          <div
-            key={index}
-            className='relative flex flex-col justify-center items-center group overflow-hidden'
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
-          >
-            <Image
-              ref={(el) => (imageRefs.current[index] = el)}
-              src={src}
-              alt="Header"
-              className="w-full h-full filter transition-blur duration-150 ease-in-out"
-            />
-            <div className='absolute inset-0 flex items-center justify-center'>
-              <h2 className='text-white z-10 text-4xl transform scale-100 group-hover:scale-125 transition-transform font-bold'>{categories[index]}</h2>
+    <section className="flex justify-center items-center max-w-[1200px] m-auto">
+    <div className="grid grid-cols-2 gap-4">
+      {images.map((src, index) => (
+        <Link href={`/${categories[index].toLowerCase()}`} key={index}>
+            <div
+              className="relative flex flex-col justify-center items-center group overflow-hidden"
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={() => handleMouseLeave(index)}
+            >
+              <Image
+                ref={(el) => (imageRefs.current[index] = el)}
+                src={src}
+                alt="Header"
+                className="w-full h-full filter transition-blur duration-150 ease-in-out"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 className="text-white z-10 text-4xl transform scale-100 group-hover:scale-125 transition-transform font-bold">
+                  {categories[index]}
+                </h2>
+              </div>
+              <div className="absolute h-full w-full bottom-0 left-0 bg-black z-1 opacity-50 "></div>
             </div>
-            <div className="absolute h-full w-full bottom-0 left-0 bg-black z-1 opacity-50 "></div>
-          </div>
-        ))}
-      
-      </div>
-    </section>
+        </Link>
+      ))}
+    </div>
+  </section>
   );
 }
 
