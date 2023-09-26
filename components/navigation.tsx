@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useState } from "react";
 import Cart from "./cart";
+import Submenu from "./submenu";
 function Navigation(){
   const [showSubMenu, setShowSubMenu] = useState(null);
   const [isopen,setIsOpen] = useState(false)
@@ -34,52 +35,7 @@ function Navigation(){
               Man
             </Link>
             {isSubMenuVisible('men') && (
-              <div onMouseEnter={() => handleMouseEnter('men')}
-              onMouseLeave={handleMouseLeave} className="absolute left-[50%] transform -translate-x-1/2 mt-2 bg-gray-800 text-white shadow-lg z-10">
-                <ul className="text-center">
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/hoodie">
-                      Hoodie
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/jeans">
-                      Jeans
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/boots">
-                      Boots
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/t-shirt">
-                      T-shirt
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/backpack">
-                      Backpack
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/jersey">
-                      Jersey
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/longsleeve">
-                      Longsleeve
-                    </Link>
-                  </li>
-                  <li className="p-4 hover:bg-white hover:text-black duration-200">
-                    <Link href="/[category]/[type]" as="/men/shorts">
-                      Shorts
-                    </Link>
-                  </li>
-
-                </ul>
-              </div>
+              <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="men"/>
             )}
           </li>
           <li
@@ -90,52 +46,7 @@ function Navigation(){
              Woman
             </Link>
             {isSubMenuVisible('women') && (
-               <div onMouseEnter={() => handleMouseEnter('women')}
-               onMouseLeave={handleMouseLeave} className="absolute left-[50%] transform -translate-x-1/2 mt-2 bg-gray-800 text-white shadow-lg z-10">
-                 <ul className="text-center">
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/hoodie">
-                       Hoodie
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/jeans">
-                       Jeans
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/boots">
-                       Boots
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/t-shirt">
-                       T-shirt
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/backpack">
-                       Backpack
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/jersey">
-                       Jersey
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/longsleeve">
-                       Longsleeve
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/women/shorts">
-                       Shorts
-                     </Link>
-                   </li>
- 
-                 </ul>
-               </div>
+               <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="women"/>
             )}
           </li>
           <li className="relative group" onMouseEnter={() => handleMouseEnter('kids')}>
@@ -143,52 +54,7 @@ function Navigation(){
              Kids
             </Link>
             {isSubMenuVisible('kids') && (
-               <div onMouseEnter={() => handleMouseEnter('kids')}
-               onMouseLeave={handleMouseLeave} className="absolute left-[50%] transform -translate-x-1/2 mt-2 bg-gray-800 text-white shadow-lg z-10">
-                 <ul className="text-center">
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/hoodie">
-                       Hoodie
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/jeans">
-                       Jeans
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/boots">
-                       Boots
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/t-shirt">
-                       T-shirt
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/backpack">
-                       Backpack
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/jersey">
-                       Jersey
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/longsleeve">
-                       Longsleeve
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/kids/shorts">
-                       Shorts
-                     </Link>
-                   </li>
- 
-                 </ul>
-               </div>
+              <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="kids"/>
             )}
           </li>
           <li className="relative group" onMouseEnter={() => handleMouseEnter('sport')}>
@@ -196,52 +62,7 @@ function Navigation(){
               Sport
             </Link>
             {isSubMenuVisible('sport') && (
-               <div onMouseEnter={() => handleMouseEnter('sport')}
-               onMouseLeave={handleMouseLeave} className="absolute left-[50%] transform -translate-x-1/2 mt-2 bg-gray-800 text-white shadow-lg z-10">
-                 <ul className="text-center">
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/hoodie">
-                       Hoodie
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/jeans">
-                       Jeans
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/boots">
-                       Boots
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/t-shirt">
-                       T-shirt
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/backpack">
-                       Backpack
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/jersey">
-                       Jersey
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/longsleeve">
-                       Longsleeve
-                     </Link>
-                   </li>
-                   <li className="p-4 hover:bg-white hover:text-black duration-200">
-                     <Link href="/[category]/[type]" as="/sport/shorts">
-                       Shorts
-                     </Link>
-                   </li>
- 
-                 </ul>
-               </div>
+              <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="sport"/>
             )}
           </li>
           <li onClick={() => setIsOpen(true)}>

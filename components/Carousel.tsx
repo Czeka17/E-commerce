@@ -3,76 +3,32 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import model from '../public/images/model.jpg'
 import Image from 'next/image';
-const items = [
-    {
-      id: 1,
-      content: (
-        <div className='m-4 p-2'>
-           <Image
-          src={model}
-          alt="model"
-          height={400}
-        />
-          <p className="legend">Image 1</p>
-        </div>
-      ),
-    },
-    {
-      id: 2,
-      content: (
-        <div className='m-4 p-2'>
-          <Image
-          src={model}
-          alt="model"
-          height={400}
-        />
-          <p className="legend">Image 2</p>
-        </div>
-      ),
-    },
-    {
-      id: 3,
-      content: (
-        <div className='m-4 p-2'>
-         <Image
-          src={model}
-          alt="model"
-          height={400}
-        />
-          <p className="legend">Image 3</p>
-        </div>
-      ),
-    },
-    {
-      id: 4,
-      content: (
-        <div className='m-4 p-2'>
-         <Image
-          src={model}
-          alt="model"
-          height={400}
-        />
-          <p className="legend">Image 4</p>
-        </div>
-      ),
-    },
-    {
-      id: 6,
-      content: (
-        <div className='m-4 p-2'>
-          <Image
-          src={model}
-          alt="model"
-          height={400}
-        />
-          <p className="legend">Image 1</p>
-        </div>
-      ),
-    }
-  ];
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+
+interface Item {
+  _id: string;
+  category: string;
+  type: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+}
 
 function Carousel() {
-
+  const [featuredClothes,setFeaturedClothes] = useState<Item[]>([])
+  useEffect(() => {
+    fetch('/api/Featured')
+    .then((response) => response.json())
+    .then((data) => {
+      setFeaturedClothes(data)
+    })
+    .catch((error) => {
+      console.log('Error fetching items:', error)
+    })
+  },[])
 
     const CustomArrow = ({ onClick, name }:any) => (
         <div
@@ -104,10 +60,22 @@ function Carousel() {
     <section className="flex justify-center items-center max-w-[1200px] m-auto">
     <div className="max-w-[100%]">
       <Slider {...settings}>
-        {items.map((item) => (
-          <div key={item.id} className="flex justify-center">
-            {item.content}
+        {featuredClothes.map((item) => (
+         <Link href="/[category]/[type]/[id]" as={`/${item.category}/${item.type}/${item._id}`} >
+          <div key={item._id} className="flex justify-center">
+            <div className='m-4 p-2'>
+          <Image
+          src={item.imageUrl}
+          alt="model"
+          height={400}
+          width={300}
+        />
+          <div className='flex flex-row justify-between items-center'>
+          <p className="legend">{item.name}</p>
+          <p>{item.price}</p>
           </div>
+        </div>
+          </div></Link>
         ))}
       </Slider>
     </div>

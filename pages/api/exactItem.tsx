@@ -1,10 +1,5 @@
-import {MongoClient, ObjectId} from "mongodb"
-
-export async function connectToDatabase(){
-    const client = await MongoClient.connect("mongodb+srv://jczekanski123:UMjnFl6noaJPBHtP@e-commerce.aincbco.mongodb.net/E-commerce")
-
-    return client
-}
+import { connectToDatabase } from "@/db/db";
+import { ObjectId } from "mongodb";
 import { NextApiRequest,NextApiResponse } from "next"
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
@@ -19,6 +14,11 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
     const item = await clothesCollection.findOne({ _id: object });
 
       if (!item) {
+        const featuredClothesCollection = db.collection('Featured');
+        const Featureditem = await featuredClothesCollection.findOne({ _id: object });
+        if(Featureditem){
+          return res.status(200).json(Featureditem);
+        }
         return res.status(404).json({ error: 'Item not found' });
       }
 

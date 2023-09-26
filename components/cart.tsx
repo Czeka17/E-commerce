@@ -9,7 +9,7 @@ function Cart({closeModal}:CartProps) {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white p-16">
+      <div className="bg-white p-16 max-h-[80%] overflow-auto">
         <h2 className="text-2xl font-semibold mb-4">Shopping Cart</h2>
         <div className="space-y-4">
           {clothesCtx.items.map((item) => (

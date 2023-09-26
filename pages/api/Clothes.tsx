@@ -1,10 +1,4 @@
-import {MongoClient} from "mongodb"
-
-export async function connectToDatabase(){
-    const client = await MongoClient.connect("mongodb+srv://jczekanski123:UMjnFl6noaJPBHtP@e-commerce.aincbco.mongodb.net/E-commerce")
-
-    return client
-}
+import { connectToDatabase } from "@/db/db";
 import { NextApiRequest,NextApiResponse } from "next"
 
 
