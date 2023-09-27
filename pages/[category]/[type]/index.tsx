@@ -6,15 +6,7 @@ import Navigation from '@/components/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import backpack from '../../../public/images/backpack.png'
-interface Item {
-    _id: string;
-    category: string;
-    type: string;
-    name: string;
-    price: number;
-    description: string;
-    imageUrl: string;
-  }
+import { Item } from '@/lib/item';
 function TypePage() {
   const router = useRouter();
   const [slug, setSlug] = useState<string | string[]>(router.query.type || '');
@@ -78,7 +70,7 @@ function TypePage() {
             className="bg-white p-6 shadow-md rounded-lg"
           >
             <Image
-  src={backpack}
+  src={item.imageUrl}
   alt={item.name}
   width={300}
   height={400}

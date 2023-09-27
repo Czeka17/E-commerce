@@ -57,14 +57,6 @@ function Navigation(){
               <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="kids"/>
             )}
           </li>
-          <li className="relative group" onMouseEnter={() => handleMouseEnter('sport')}>
-            <Link href="/[category]" as="/sport">
-              Sport
-            </Link>
-            {isSubMenuVisible('sport') && (
-              <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="sport"/>
-            )}
-          </li>
           <li onClick={() => setIsOpen(true)}>
             <p>open</p>
           </li>

@@ -28,7 +28,7 @@ function Categories(){
         'Boots',
         'T-shirt',
         'Backpack',
-        'Jersey',
+        'Sport',
         'Longsleeve',
         'Shorts'
       ]

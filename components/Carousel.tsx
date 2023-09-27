@@ -5,17 +5,7 @@ import model from '../public/images/model.jpg'
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-
-interface Item {
-  _id: string;
-  category: string;
-  type: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-}
+import {Item} from '../lib/item'
 
 function Carousel() {
   const [featuredClothes,setFeaturedClothes] = useState<Item[]>([])
