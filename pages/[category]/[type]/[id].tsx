@@ -1,20 +1,21 @@
 // pages/[category]/[id].tsx
 import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { dummyItems } from '@/dummyItems';
+
 import Navigation from '@/components/navigation';
-import Image from 'next/image';
+
 
 import { ClothesContext } from '@/store/clothes-context';
 import { Item } from '@/lib/item';
+import ProductCard from '@/components/ProductCard';
 const ItemDetailPage = () => {
   const router = useRouter();
   const clothesCtx = useContext(ClothesContext)
   const { category, id } = router.query;
 const [item,setItem] = useState<Item>()
 const [isLoading,setIsLoading] = useState(true)
-const [color,setColor] = useState('')
-const [size,setSize] = useState('')
+const [pickedColor,setPickedColor] = useState('')
+const [pickedSize,setPickedSize] = useState('')
 const [amount,setAmount] = useState(1)
 function increaseAmount(){
   setAmount((prevAmount) => prevAmount + 1)
@@ -23,10 +24,10 @@ function decreaseAmount(){
   setAmount((prevAmount) => prevAmount - 1)
 }
 function pickColor(color:string){
-  setColor(color)
+  setPickedColor(color)
 }
 function pickSize(size:string){
-  setSize(size)
+  setPickedSize(size)
 }
   useEffect(() => {
     if(id){
@@ -54,29 +55,19 @@ function pickSize(size:string){
   return (
     <section className="max-w-[1200px] m-auto">
       <Navigation/>
-    {item && !isLoading && <div className='flex flex-row justify-around items-center'>
-     <div
-            className="bg-white p-6 shadow-md rounded-lg"
-          >
-      <Image
-  src={item.imageUrl}
-  alt={item.name}
-  width={300}
-  height={400}
-  className="mb-4 rounded-md"
-/>
-</div>
+    {item && !isLoading && <div className='flex flex-row justify-around items-center mt-10'>
+   <ProductCard item={item.imageUrl} name={item.name}/>
     <div>
-    <h2>{item.name}</h2>
+    <h2 className='font-bold'>{item.name}</h2>
       <p>{item.description}</p>
-     <div className='flex flex-row justify-around'>
+     <div className='flex flex-row justify-start my-2'>
      {item.sizes?.map((size,index) => (
-        <div key={index} className='border-2 border-black border-solid cursor-pointer' onClick={() => pickSize(size)}><p className='p-2'>{size}</p></div>
+        <div key={index} className={`border-2 mx-2 border-black border-solid cursor-pointer hover:bg-black hover:text-white ${size === pickedSize ? 'bg-black text-white' : ''}`} onClick={() => pickSize(size)}><p className='p-2'>{size}</p></div>
       ))}
      </div>
-     <div className='flex flex-row justify-center'>
+     <div className='flex flex-row justify-start'>
   {item.colors?.map((color, index) => (
-    <div key={index} onClick={() => pickColor(color)} className={`rounded-full w-8 h-8 border-2 border-black mx-2 cursor-pointer bg-${color === 'white' || color === 'black' ? color : `${color}-500`}`}>
+    <div key={index} onClick={() => pickColor(color)} className={`rounded-full w-8 h-8 border-2 border-black mx-2 cursor-pointer bg-${color} ${pickedColor === color ? 'border-4 border-blue-500': ''}`}>
     </div>
   ))}
 </div>
@@ -87,9 +78,10 @@ function pickSize(size:string){
       </div>
       <p>Price: ${item.price?.toFixed(2)}</p>
       {amount > 1 && <p>Total Price: ${(item.price * amount)?.toFixed(2)}</p>}
-      <button disabled={color === '' && size === ''} onClick={() => clothesCtx.addItem({name:item.name,imageUrl:item.imageUrl,_id:item._id,price:item.price,totalPrice:parseFloat((item!.price * amount).toFixed(2)),color:color,size:size,amount:amount})}>Add to cart</button>
+      <button disabled={pickedColor === '' && pickedSize === ''} onClick={() => clothesCtx.addItem({name:item.name,imageUrl:item.imageUrl,_id:item._id,price:item.price,totalPrice:parseFloat((item!.price * amount).toFixed(2)),color:pickedColor,size:pickedSize,amount:amount})}>Add to cart</button>
     </div>
      </div>}
+     {!item && !isLoading && <div className='w-full h-full flex justify-center items-center'><p>No item found</p></div>}
     </section>
   );
 };

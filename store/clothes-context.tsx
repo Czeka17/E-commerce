@@ -1,5 +1,6 @@
-import { createContext, ReactNode,useState } from "react";
-interface Item {
+import { createContext, ReactNode,useState,useEffect } from "react";
+import { Item } from "@/lib/item";
+interface CartItem {
     _id: string;
     name: string;
     totalPrice: number,
@@ -11,8 +12,9 @@ interface Item {
   }
 interface ClothesContext{
     price:number,
-    items:Item[],
-    addItem: (item:Item) => void
+    items:CartItem[],
+    addItem: (item:CartItem) => void,
+    featuredItems: Item[],
     increaseItemAmount: (itemId: string) => void;
   decreaseItemAmount: (itemId: string) => void;
 }
@@ -20,16 +22,29 @@ interface ClothesContext{
 export const ClothesContext = createContext<ClothesContext>({
     price:0,
     items:[],
-    addItem: (item:Item) => {},
+    featuredItems:[],
+    addItem: (item:CartItem) => {},
     increaseItemAmount: (itemId:string) => {},
     decreaseItemAmount: (itemId: string) => {}
 })
 
 export const ClothesProvider = ({ children }: { children: ReactNode }) => {
     const [price,setPrice] = useState(0)
-    const [items,setItems] = useState<Item[]>([])
+    const [items,setItems] = useState<CartItem[]>([])
+    const [featuredItems, setFeaturedItems] = useState<Item[]>([]);
 
-    function addItem({name,imageUrl,_id,totalPrice,size,color,price,amount}:Item){
+    useEffect(() => {
+      fetch('/api/Featured')
+          .then((response) => response.json())
+          .then((data) => {
+              setFeaturedItems(data);
+          })
+          .catch((error) => {
+              console.error('Error fetching featured items:', error);
+          });
+  }, []);
+  
+    function addItem({name,imageUrl,_id,totalPrice,size,color,price,amount}:CartItem){
         const item = {
             _id:_id,
             name:name,
@@ -77,6 +92,7 @@ export const ClothesProvider = ({ children }: { children: ReactNode }) => {
         price:price,
         items:items,
         addItem:addItem,
+        featuredItems: featuredItems,
         increaseItemAmount: increaseItemAmount,
     decreaseItemAmount: decreaseItemAmount,
     }

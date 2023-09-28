@@ -7,18 +7,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {Item} from '../lib/item'
 
-function Carousel() {
-  const [featuredClothes,setFeaturedClothes] = useState<Item[]>([])
-  useEffect(() => {
-    fetch('/api/Featured')
-    .then((response) => response.json())
-    .then((data) => {
-      setFeaturedClothes(data)
-    })
-    .catch((error) => {
-      console.log('Error fetching items:', error)
-    })
-  },[])
+interface CaruoselProps{
+  featuredItems:Item[]
+}
+function Carousel({featuredItems}:CaruoselProps) {
+
 
     const CustomArrow = ({ onClick, name }:any) => (
         <div
@@ -50,9 +43,9 @@ function Carousel() {
     <section className="flex justify-center items-center max-w-[1200px] m-auto">
     <div className="max-w-[100%]">
       <Slider {...settings}>
-        {featuredClothes.map((item) => (
-         <Link href="/[category]/[type]/[id]" as={`/${item.category}/${item.type}/${item._id}`} >
-          <div key={item._id} className="flex justify-center">
+        {featuredItems.map((item) => (
+         <Link key={item._id} href="/[category]/[type]/[id]" as={`/${item.category}/${item.type}/${item._id}`} >
+          <div className="flex justify-center">
             <div className='m-4 p-2'>
           <Image
           src={item.imageUrl}

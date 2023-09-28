@@ -67,7 +67,7 @@ function TypePage() {
         {filteredItems && filteredItems.map((item) => (
            <Link href={`/${category}/${item.type}/${item._id}`} key={item._id}>
           <div
-            className="bg-white p-6 shadow-md rounded-lg"
+            className="bg-white p-6 shadow-md rounded-lg hover:scale-105 duration-200"
           >
             <Image
   src={item.imageUrl}

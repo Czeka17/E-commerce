@@ -11,7 +11,8 @@ function CategoryPage() {
   const router = useRouter();
   const [slug, setSlug] = useState<string | string[]>(router.query.category || '');
   const [filteredItems,setFilteredItems] = useState<Item[]>([])
-  const categoryToFilter = Array.isArray(slug) ? slug.join(',') : slug;
+  const [isLoading,setIsLoading] = useState(true)
+
 
 
   useEffect(() => {
@@ -19,6 +20,7 @@ function CategoryPage() {
       .then((response) => response.json())
       .then((data) => {
         setFilteredItems(data);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.error('Error fetching items:', error);
@@ -45,11 +47,11 @@ function CategoryPage() {
     <section className="max-w-[1200px] m-auto">
       <Navigation />
       <h2 className="text-3xl font-semibold p-4">Category: {slug}</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      {!isLoading ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {filteredItems.map((item) => (
            <Link href={`/${slug}/${item.type}/${item._id}`} key={item._id}>
           <div
-            className="bg-white p-6 shadow-md rounded-lg"
+            className="bg-white p-6 shadow-md rounded-lg hover:scale-105 duration-200"
           >
             <Image
   src={item.imageUrl}
@@ -66,7 +68,7 @@ function CategoryPage() {
           </div>
           </Link>
         ))}
-      </div>
+      </div> : <div className='w-full h-full flex justify-center items-center'><p>Loading...</p></div>}
     </section>
   );
 }
