@@ -11,7 +11,7 @@ import ProductCard from '@/components/ProductCard';
 const ItemDetailPage = () => {
   const router = useRouter();
   const clothesCtx = useContext(ClothesContext)
-  const { category, id } = router.query;
+  const { id } = router.query;
 const [item,setItem] = useState<Item>()
 const [isLoading,setIsLoading] = useState(true)
 const [pickedColor,setPickedColor] = useState('')

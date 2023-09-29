@@ -17,6 +17,7 @@ interface ClothesContext{
     featuredItems: Item[],
     increaseItemAmount: (itemId: string) => void;
   decreaseItemAmount: (itemId: string) => void;
+  deleteItem: (itemId: string) => void;
 }
 
 export const ClothesContext = createContext<ClothesContext>({
@@ -25,7 +26,8 @@ export const ClothesContext = createContext<ClothesContext>({
     featuredItems:[],
     addItem: (item:CartItem) => {},
     increaseItemAmount: (itemId:string) => {},
-    decreaseItemAmount: (itemId: string) => {}
+    decreaseItemAmount: (itemId: string) => {},
+    deleteItem: (itemId:string) => {}
 })
 
 export const ClothesProvider = ({ children }: { children: ReactNode }) => {
@@ -86,6 +88,19 @@ export const ClothesProvider = ({ children }: { children: ReactNode }) => {
           (items.find((item) => item._id === itemId)?.price || 0)
         );
       }
+
+      function deleteItem(itemId:string){
+        const itemToDelete = items.find(item => item._id === itemId);
+  
+        if (itemToDelete) {
+          const newItems = items.filter(item => item._id !== itemId);
+          setItems(newItems);
+
+          const priceToDeduct = itemToDelete.price * itemToDelete.amount;
+          
+          setPrice(prevPrice => prevPrice - priceToDeduct);
+        }
+      }
       
 
     const value = {
@@ -95,6 +110,7 @@ export const ClothesProvider = ({ children }: { children: ReactNode }) => {
         featuredItems: featuredItems,
         increaseItemAmount: increaseItemAmount,
     decreaseItemAmount: decreaseItemAmount,
+    deleteItem:deleteItem
     }
     return <ClothesContext.Provider value={value}>{children}</ClothesContext.Provider>
 

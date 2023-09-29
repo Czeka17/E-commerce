@@ -13,8 +13,6 @@ function CategoryPage() {
   const [filteredItems,setFilteredItems] = useState<Item[]>([])
   const [isLoading,setIsLoading] = useState(true)
 
-
-
   useEffect(() => {
     fetch(`/api/Clothes?slug=${slug}`)
       .then((response) => response.json())
@@ -26,16 +24,6 @@ function CategoryPage() {
         console.error('Error fetching items:', error);
       });
   }, [slug]);
-  // useEffect(() => {
-  //   if (router.query.category) {
-
-  //     filteredItems.filter((item) =>
-  //       item.category.toLowerCase() === categoryToFilter.toLowerCase()
-  //     );
-  //     setFilteredItems(filteredItems);
-  //   }
-  // }, [router.query.category, slug]);
-
 
   useEffect(() => {
     if (router.query.category) {
