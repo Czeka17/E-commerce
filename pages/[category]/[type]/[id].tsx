@@ -50,6 +50,16 @@ function pickSize(size:string){
     }
   },[id])
 
+  let discountPrice :number
+  let finalPrice : number
+  let price: number
+if(item){
+  discountPrice = parseFloat((item!.price - (item!.price * (item!.sale / 100))).toFixed(2));
+
+  finalPrice = item.sale ? (discountPrice * amount) : parseFloat((item.price * amount).toFixed(2));
+
+  price = item.sale ? discountPrice : item.price
+}
 
 
   return (
@@ -76,9 +86,10 @@ function pickSize(size:string){
       <p>{amount}</p>
       <button className="px-3 py-1 bg-gray-200 text-gray-600 rounded-r hover:bg-gray-300 focus:outline-none" onClick={increaseAmount} disabled={amount === 5}>+</button>
       </div>
-      <p>Price: ${item.price?.toFixed(2)}</p>
-      {amount > 1 && <p>Total Price: ${(item.price * amount)?.toFixed(2)}</p>}
-      <button disabled={pickedColor === '' && pickedSize === ''} onClick={() => clothesCtx.addItem({name:item.name,imageUrl:item.imageUrl,_id:item._id,price:item.price,totalPrice:parseFloat((item!.price * amount).toFixed(2)),color:pickedColor,size:pickedSize,amount:amount})}>Add to cart</button>
+      {item.sale ? <div><p className="text-gray-500 line-through">${item.price?.toFixed(2)}</p><p>${discountPrice!}</p></div> : <p>Price: ${item.price?.toFixed(2)}</p>}
+      {amount > 1 && !item.sale && <p>Total Price: ${(item.price * amount)?.toFixed(2)}</p>}
+      {amount > 1 && item.sale && <p>Total Price: ${(discountPrice! * amount)?.toFixed(2)}</p>}
+      <button disabled={pickedColor === '' && pickedSize === ''} onClick={() => clothesCtx.addItem({name:item.name,imageUrl:item.imageUrl,_id:item._id,price:price!,totalPrice:finalPrice!,color:pickedColor,size:pickedSize,amount:amount})}>Add to cart</button>
     </div>
      </div>}
      {!item && !isLoading && <div className='w-full h-full flex justify-center items-center'><p>No item found</p></div>}

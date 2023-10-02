@@ -8,4 +8,5 @@ export interface Item {
     imageUrl: string;
     sizes:string[];
     colors:string[];
+    sale:number;
 }

@@ -2,10 +2,9 @@
 import {useState,useEffect} from 'react'
 import { useRouter } from 'next/router';
 import Navigation from '@/components/navigation';
-import { dummyItems } from '@/dummyItems';
 import Link from 'next/link';
 import Image from 'next/image';
-import backpack from '../../public/images/backpack.png'
+
 import { Item } from '@/lib/item';
 function CategoryPage() {
   const router = useRouter();
@@ -39,7 +38,7 @@ function CategoryPage() {
         {filteredItems.map((item) => (
            <Link href={`/${slug}/${item.type}/${item._id}`} key={item._id}>
           <div
-            className="bg-white p-6 shadow-md rounded-lg hover:scale-105 duration-200"
+            className="bg-white p-6 shadow-md rounded-lg hover:scale-105 duration-200 h-[100%]"
           >
             <Image
   src={item.imageUrl}
@@ -50,9 +49,13 @@ function CategoryPage() {
 />
 
             <h2 className="text-xl font-semibold">{item.name}</h2>
-            <p className="text-green-600 font-semibold mt-2">
-              Price: ${item.price.toFixed(2)}
-            </p>
+            {item.sale ? <div className="mt-2"><p className='text-gray-500 line-through'>
+									${item.price.toFixed(2)}
+								</p><p className='text-green-600 font-semibold'>
+									${parseFloat((item!.price - (item!.price * (item!.sale / 100))).toFixed(2))}
+								</p></div> :<p className='text-green-600 font-semibold mt-2'>
+									${item.price.toFixed(2)}
+								</p>}
           </div>
           </Link>
         ))}

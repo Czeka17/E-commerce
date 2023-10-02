@@ -22,14 +22,19 @@ function Navigation(){
       <nav className="text-black py-4">
       <div className="flex justify-center items-center">
         <Link href="/">
-          VogueNest
+        TrendTribe
         </Link>
+        <div>
+        <button className="absolute top-0 right-0 p-4" onClick={() => setIsOpen(true)}>
+            <p>open</p>
+          </button>
+        </div>
       </div>
-      <div className="relative">
-        <ul className="flex row justify-around items-center">
+      <div className="pt-2">
+        <ul className="flex row justify-center items-center">
           <li
             onMouseEnter={() => handleMouseEnter('men')}
-            className="relative group"
+            className="relative group mx-10"
           >
             <Link href="/[category]" as="/men">
               Man
@@ -40,7 +45,7 @@ function Navigation(){
           </li>
           <li
             onMouseEnter={() => handleMouseEnter('women')}
-            className="relative group"
+            className="relative group mx-10"
           >
             <Link href="/[category]" as="/women">
              Woman
@@ -49,18 +54,18 @@ function Navigation(){
                <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="women"/>
             )}
           </li>
-          <li className="relative group" onMouseEnter={() => handleMouseEnter('kids')}>
-            <Link href="/[category]" as="/kids">
-             Kids
+          <li className="relative group mx-10">
+            <Link href="/[category]" as="/accessories">
+            Accessories
             </Link>
-            {isSubMenuVisible('kids') && (
-              <Submenu handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} category="kids"/>
-            )}
           </li>
-          <li onClick={() => setIsOpen(true)}>
-            <p>open</p>
+          <li className="relative group mx-10">
+            <Link href="/[category]" as="/sale">
+            Sale
+            </Link>
           </li>
         </ul>
+
       </div>
       {isopen && <Cart closeModal={closeModal}/>}
     </nav>

@@ -13,6 +13,7 @@ function CartItem(){
     clothesCtx.decreaseItemAmount(itemId);
   };
 
+  
     return   <div className="space-y-4">
           {clothesCtx.items.map((item) => (
             <div key={item._id} className="flex justify-between">

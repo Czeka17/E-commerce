@@ -37,7 +37,7 @@ function TypePage() {
 			.catch((error) => {
 				console.error("Error fetching items:", error);
 			});
-	}, []);
+	}, [slug]);
 
 	return (
 		<section className='max-w-[1200px] m-auto'>
@@ -50,7 +50,7 @@ function TypePage() {
 							href={`/${category}/${item.type}/${item._id}`}
 							key={item._id}
 						>
-							<div className='bg-white p-6 shadow-md rounded-lg hover:scale-105 duration-200'>
+							<div className='bg-white p-6 shadow-md rounded-lg hover:scale-105 duration-200 h-[100%]'>
 								<Image
 									src={item.imageUrl}
 									alt={item.name}
@@ -60,9 +60,13 @@ function TypePage() {
 								/>
 
 								<h2 className='text-xl font-semibold'>{item.name}</h2>
-								<p className='text-green-600 font-semibold mt-2'>
-									Price: ${item.price.toFixed(2)}
-								</p>
+								{item.sale ? <div className="mt-2"><p className='text-gray-500 line-through'>
+									${item.price.toFixed(2)}
+								</p><p className='text-green-600 font-semibold'>
+									${parseFloat((item!.price - (item!.price * (item!.sale / 100))).toFixed(2))}
+								</p></div> :<p className='text-green-600 font-semibold mt-2'>
+									${item.price.toFixed(2)}
+								</p>}
 							</div>
 						</Link>
 					))}
