@@ -29,6 +29,7 @@ function pickColor(color:string){
 function pickSize(size:string){
   setPickedSize(size)
 }
+
   useEffect(() => {
     if(id){
       setIsLoading(true)
@@ -77,7 +78,7 @@ if(item){
      </div>
      <div className='flex flex-row justify-start'>
   {item.colors?.map((color, index) => (
-    <div key={index} onClick={() => pickColor(color)} className={`rounded-full w-8 h-8 border-2 border-black mx-2 cursor-pointer bg-${color} ${pickedColor === color ? 'border-4 border-blue-500': ''}`}>
+    <div key={index} onClick={() => pickColor(color)} className={`rounded-full w-8 h-8 border-2 border-black mx-2 cursor-pointer ${color === 'white' || color === 'black' ? `bg-${color}` : `bg-${color}-500`} ${pickedColor === color ? 'border-4 border-blue-500': ''}`}>
     </div>
   ))}
 </div>

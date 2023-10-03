@@ -40,7 +40,7 @@ function ProductCard({ item,name }: ProductCardProps) {
 
   return (
     <div
-      className="bg-white p-6 shadow-md rounded-lg relative"
+      className="bg-white/50 p-6 shadow-md rounded-lg relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
@@ -54,7 +54,7 @@ function ProductCard({ item,name }: ProductCardProps) {
       />
       {isHovered && (
         <div
-          className="absolute top-0 left-0 z-50 w-48 h-48 bg-white border border-gray-300 rounded-full shadow-md flex justify-center items-center pointer-events-none"
+          className="absolute top-0 left-0 z-50 w-48 h-48 bg-white/50 border border-gray-300 rounded-full shadow-md flex justify-center items-center pointer-events-none"
           style={{ left: followCursorX , top: followCursorY }}
         >
           <div

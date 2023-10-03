@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {Item} from '../lib/item'
+import {AiOutlineRight,AiOutlineLeft} from 'react-icons/ai'
 
 interface CaruoselProps{
   featuredItems:Item[]
@@ -20,7 +21,7 @@ function Carousel({featuredItems}:CaruoselProps) {
           } cursor-pointer bg-white p-2 rounded-full hover:bg-gray-300`}
           onClick={onClick}
         >
-          <p>{name}</p>
+          {name === 'L' ? <AiOutlineLeft/> : <AiOutlineRight/>}
         </div>
       );
   const settings = {

@@ -2,6 +2,7 @@ import Link from "next/link"
 import { useState } from "react";
 import Cart from "./cart";
 import Submenu from "./submenu";
+import {AiOutlineShoppingCart} from 'react-icons/ai'
 function Navigation(){
   const [showSubMenu, setShowSubMenu] = useState(null);
   const [isopen,setIsOpen] = useState(false)
@@ -19,14 +20,14 @@ function Navigation(){
     return showSubMenu === category;
   };
     return (
-      <nav className="text-black py-4">
+      <nav className="text-black py-4 max-w-[1200px] relative m-auto">
       <div className="flex justify-center items-center">
         <Link href="/">
         TrendTribe
         </Link>
         <div>
         <button className="absolute top-0 right-0 p-4" onClick={() => setIsOpen(true)}>
-            <p>open</p>
+            <AiOutlineShoppingCart size={24}/>
           </button>
         </div>
       </div>
