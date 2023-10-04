@@ -42,7 +42,6 @@ function TypePage() {
 	return (
 		<section className='max-w-[1200px] m-auto'>
 			<Navigation />
-			<h2 className='text-3xl font-semibold p-4'>Category: {slug}</h2>
 			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
 				{filteredItems &&
 					filteredItems.map((item) => (
