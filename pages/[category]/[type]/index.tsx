@@ -4,15 +4,18 @@ import Navigation from "@/components/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Item } from "@/lib/item";
+import Filters from "@/components/Filters";
 function TypePage() {
 	const router = useRouter();
 	const [slug, setSlug] = useState<string | string[]>(router.query.type || "");
-	const [filteredItems, setFilteredItems] = useState<Item[]>([]);
+	const [allItems, setAllItems] = useState<Item[]>([]);
+	const [filteredItems, setFilteredItems] = useState<Item[]>(allItems);
 
-	const [category, setCategory] = useState<string | string[]>(
-		router.query.category || ""
-	);
-
+	const [category, setCategory] = useState<string | string[]>(router.query.category || "");
+	
+	function HandleChangeFilter(items:Item[]){
+		setFilteredItems(items)
+	  }
 	useEffect(() => {
 		if (router.query.type) {
 			setSlug(router.query.type);
@@ -32,7 +35,7 @@ function TypePage() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setFilteredItems(data);
+				setAllItems(data);
 			})
 			.catch((error) => {
 				console.error("Error fetching items:", error);
@@ -42,6 +45,7 @@ function TypePage() {
 	return (
 		<section className='max-w-[1200px] m-auto'>
 			<Navigation />
+			<Filters items={allItems} HandleChangeFilter={HandleChangeFilter}/>
 			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
 				{filteredItems &&
 					filteredItems.map((item) => (
