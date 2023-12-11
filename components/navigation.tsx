@@ -1,9 +1,11 @@
 import Link from "next/link"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Cart from "./cart";
 import Submenu from "./submenu";
 import {AiOutlineShoppingCart} from 'react-icons/ai'
+import { ClothesContext } from "@/store/clothes-context";
 function Navigation(){
+  const clothesCtx = useContext(ClothesContext)
   const [showSubMenu, setShowSubMenu] = useState(null);
   const [isopen,setIsOpen] = useState(false)
   const handleMouseEnter = (category:any) => {
@@ -26,10 +28,14 @@ function Navigation(){
         TrendTribe
         </Link>
         <div>
-        <button className="absolute top-0 right-0 p-4" onClick={() => setIsOpen(true)}>
-            <AiOutlineShoppingCart size={24}/>
+        <button className="absolute top-0 right-0 p-4 group " onClick={() => setIsOpen(true)}>
+            <AiOutlineShoppingCart size={24} className="group-hover:scale-125 transition-all"/>
+           {clothesCtx.items.length > 0 && <div className="absolute bottom-0 right-0">
+              <p className="px-[6px] bg-black rounded-full text-white text-sm">{clothesCtx.items.length}</p>
+            </div>}
           </button>
         </div>
+        
       </div>
       <div className="pt-2">
         <ul className="flex row justify-center items-center">

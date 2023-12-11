@@ -47,8 +47,27 @@ export const ClothesProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   
     function addItem({name,imageUrl,_id,totalPrice,size,color,price,amount}:CartItem){
+      const existingItem = items.find(
+        (item) => item._id === _id && item.size === size && item.color === color
+      );
+      if (existingItem) {
+
+        setItems((prevItems) =>
+          prevItems.map((item) =>
+          item._id === _id && item.size === size && item.color === color
+              ? {
+                  ...item,
+                  amount: item.amount + amount,
+                  totalPrice: item.totalPrice + totalPrice,
+                }
+              : item
+          )
+        );
+        setPrice(prevPrice => prevPrice + totalPrice)
+              }
+        else{
         const item = {
-            _id:_id,
+            _id: `${_id}-${size}-${color}`,
             name:name,
             imageUrl:imageUrl,
             totalPrice:totalPrice,
@@ -60,6 +79,7 @@ export const ClothesProvider = ({ children }: { children: ReactNode }) => {
         setItems(prevItems => [...prevItems, item])
         setPrice(prevPrice => prevPrice + totalPrice)
         console.log(items)
+      }
     }
     function increaseItemAmount(itemId: string) {
         setItems((prevItems) =>

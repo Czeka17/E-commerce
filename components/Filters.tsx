@@ -11,6 +11,7 @@ function Filters({items,HandleChangeFilter}:FiltersProps){
     const [sortSizeOption,setSortSizeOption] = useState('')
     const [sortColorOption,setSortColorOption] = useState('')
     const [availableColors, setAvailableColors] = useState<string[]>([]);
+    const [sortType,setSortType] = useState('')
     const [sortSaleOption,setSortSaleOption] = useState('')
     useEffect(() => {
         const uniqueColors = Array.from(
@@ -38,6 +39,9 @@ function Filters({items,HandleChangeFilter}:FiltersProps){
         } else if (sortSizeOption === 'XXL') {
           tempFilteredItems = tempFilteredItems.filter((item) => item.sizes.includes('XXL'));
         }
+        if(sortType){
+          tempFilteredItems = tempFilteredItems.filter((item) => item.type === sortType )
+        }
       
         if (sortPriceOption === 'Price descending') {
           tempFilteredItems = tempFilteredItems.sort((a, b) => {
@@ -54,18 +58,20 @@ function Filters({items,HandleChangeFilter}:FiltersProps){
         }
       
         HandleChangeFilter(tempFilteredItems);
-      }, [sortSaleOption, sortColorOption, sortSizeOption, sortPriceOption, items]);
+      }, [sortSaleOption, sortColorOption, sortSizeOption, sortPriceOption, items, sortType]);
       
     return <div>
     <select
         value={sortPriceOption}
         onChange={(e) => setSortPriceOption(e.target.value)}
+        className='mr-2'
       >
         <option value="">Sort</option>
         <option value="Price descending">Price descending</option>
         <option value="Price ascending">Price ascending</option>
       </select>
     <select
+    className='m-2'
         value={sortSizeOption}
         onChange={(e) => setSortSizeOption(e.target.value)}
       >
@@ -75,7 +81,18 @@ function Filters({items,HandleChangeFilter}:FiltersProps){
         <option value="XXL">XXL</option>
       </select>
       <select
-      className='relative'
+    className='m-2'
+        value={sortType}
+        onChange={(e) => setSortType(e.target.value)}
+      >
+        <option value="">Type</option>
+        <option value="hoodie">Hoodie</option>
+        <option value="sport">Sport</option>
+        <option value="longsleeve">Longsleeve</option>
+      </select>
+      <select
+      
+      className='relative m-2'
         value={sortColorOption}
         onChange={(e) => setSortColorOption(e.target.value)}
       >
@@ -86,7 +103,7 @@ function Filters({items,HandleChangeFilter}:FiltersProps){
           </option>
         ))}
       </select>
-      <select  value={sortSaleOption}
+      <select className='m-2'  value={sortSaleOption}
         onChange={(e) => setSortSaleOption(e.target.value)}>
         <option value="">All</option>
         <option value="sale">On sale</option>
